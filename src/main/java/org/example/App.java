@@ -5,6 +5,7 @@ import org.example.dominio.Cliente;
 import org.example.dominio.LimiteDeSenhasExcedido;
 import org.example.dominio.ValidaAgendamento;
 
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ import java.util.Scanner;
  *
  */
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner scanner = new Scanner(System.in);
         ValidaAgendamento agendar = new ValidaAgendamento();
@@ -21,7 +22,9 @@ public class App {
         Integer opcao =0;
         do {
             System.out.println("Seleciona a opção desejada");
-            System.out.println(" 1 - Realizar agendamento \n 2 - Listar Agendamentos do dia");
+            System.out.println(" 1 - Realizar agendamento \n ");
+            System.out.println(" 2 - Listar Agendamentos do dia \n ");
+            System.out.println(" 3 - Gerar relatorio .csv \n ");
 
             opcao = scanner.nextInt();
             switch (opcao) {
@@ -50,6 +53,10 @@ public class App {
                     // TODO listar agendamentos
                     System.out.println(agendar.imprimirAgenda());
                     break;
+                case 3:
+                    System.out.println("informe o caminho");
+                    agendar.gerarAgendamentoCsv(scanner.next());
+
                 default:
                     System.out.println("Informação inválida");
 

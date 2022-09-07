@@ -1,5 +1,9 @@
 package org.example.dominio;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -112,5 +116,26 @@ public class ValidaAgendamento {
 
     private void imprimirUltimoAgendamento(){
         agendamentos.size();
+    }
+
+    public void gerarAgendamentoCsv(String caminho) throws IOException {
+
+        String fdate = LocalDate.now().format(DateTimeFormatter.ofPattern("ddMMyyyy"));
+        String fileName = caminho + "atendimentos_"+ fdate +".csv";
+
+        FileOutputStream fos = new FileOutputStream(fileName);
+        try  {
+            byte[] mybytes = null;
+            String text = "";
+            for(Agendamento item : agendamentos){
+                text = text + item.getIdentificador() +";"+item.getCliente().getNome()+";"+ item.getHorario().toString() +"\n";
+            }
+            mybytes = text.getBytes();
+            fos.write(mybytes);
+
+        }finally {
+            fos.close();
+        }
+
     }
 }
